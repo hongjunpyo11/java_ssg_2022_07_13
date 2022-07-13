@@ -2,7 +2,6 @@ package com.ll.exam;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,12 +23,12 @@ public class AppTest {
     }
 
     @Test
-    public void 출력을_모니터에_하지_않고_문자열로_얻기() {
-        ByteArrayOutputStream output = TestUtil.setOutToByteArray();
-        System.out.print("안녕");
-        String rs = output.toString();
-        TestUtil.clearSetOutToByteArray(output);
+    public void 문자열을_파일에_저장() {
+        Util.file.mkdir("test_data");
+        Util.file.saveToFile("test_data/1.txt", "안녕");
 
-        assertEquals("안녕", rs);
+        String body = Util.file.readFromFile("test_data/1.txt");
+
+        assertEquals("안녕", body);
     }
 }
