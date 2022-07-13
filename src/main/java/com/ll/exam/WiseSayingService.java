@@ -1,57 +1,31 @@
 package com.ll.exam;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class WiseSayingService {
-    private Scanner sc;
-    private int wiseSayingsLastId;
-    private List<WiseSaying> wiseSayings;
+    private WiseSayingRepository wiseSayingRepository;
 
-    public WiseSaying findById(int id) {
-        for (WiseSaying wiseSaying : wiseSayings) {
-            if (wiseSaying.id == id) {
-                return wiseSaying;
-            }
-        }
-
-        return null;
+    public WiseSayingService() {
+        wiseSayingRepository = new WiseSayingRepository();
     }
 
     public WiseSaying write(String content, String author) {
-        int id = ++wiseSayingsLastId;
-        WiseSaying wiseSaying = new WiseSaying(id, content, author);
-        wiseSayings.add(wiseSaying);
-
-        return wiseSaying;
-    }
-
-    public List<WiseSaying> findAll() {
-        return wiseSayings;
+        return wiseSayingRepository.write(content, author);
     }
 
     public boolean modify(int id, String content, String author) {
-        WiseSaying wiseSaying = findById(id);
-
-        if (wiseSaying == null) {
-            return false;
-        }
-
-        wiseSaying.content = content;
-        wiseSaying.author = author;
-
-        return true;
+        return wiseSayingRepository.modify(id, content, author);
     }
 
     public boolean remove(int id) {
-        WiseSaying wiseSaying = findById(id);
-
-        if (wiseSaying == null) {
-            return false;
+        return wiseSayingRepository.remove(id);
         }
 
-        wiseSayings.remove(wiseSaying);
+    public WiseSaying findById(int id) {
+        return wiseSayingRepository.findById(id);
+    }
 
-        return true;
+    public List<WiseSaying> findAll() {
+        return wiseSayingRepository.findAll();
     }
 }
