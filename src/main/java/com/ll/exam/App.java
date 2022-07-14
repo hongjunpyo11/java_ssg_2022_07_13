@@ -37,6 +37,8 @@ public class App {
                     break;
                 case "수정":
                     wiseSayingController.modify(rq);
+                case "빌드":
+                    wiseSayingController.build(rq);
                     break;
                 case "종료":
                     break outer;
