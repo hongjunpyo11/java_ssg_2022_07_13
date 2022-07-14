@@ -4,12 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WiseSayingRepository {
-    private List<WiseSaying> wiseSayings;
     private int wiseSayingsLastId;
+    private List<WiseSaying> wiseSayings;
 
-    WiseSayingRepository() {
+    public WiseSayingRepository() {
         wiseSayingsLastId = 0;
         wiseSayings = new ArrayList<>();
+    }
+
+    public WiseSaying add(String content, String author) {
+        int id = ++wiseSayingsLastId;
+
+        WiseSaying wiseSaying = new WiseSaying(id, content, author);
+
+        wiseSayings.add(wiseSaying);
+
+        return wiseSaying;
+    }
+
+    public List<WiseSaying> findAll() {
+        return wiseSayings;
     }
 
     public WiseSaying findById(int id) {
@@ -22,16 +36,17 @@ public class WiseSayingRepository {
         return null;
     }
 
-    public WiseSaying write(String content, String author) {
-        int id = ++wiseSayingsLastId;
-        WiseSaying wiseSaying = new WiseSaying(id, content, author);
-        wiseSayings.add(wiseSaying);
+    public boolean modify(int id, String content, String author) {
+        WiseSaying wiseSaying = findById(id);
 
-        return wiseSaying;
-    }
+        if (wiseSaying == null) {
+            return false;
+        }
 
-    public List<WiseSaying> findAll() {
-        return wiseSayings;
+        wiseSaying.content = content;
+        wiseSaying.author = author;
+
+        return true;
     }
 
     public boolean remove(int id) {
@@ -42,19 +57,6 @@ public class WiseSayingRepository {
         }
 
         wiseSayings.remove(wiseSaying);
-
-        return true;
-    }
-
-    public boolean modify(int id, String content, String author) {
-        WiseSaying wiseSaying = findById(id);
-
-        if (wiseSaying == null) {
-            return false;
-        }
-
-        wiseSaying.content = content;
-        wiseSaying.author = author;
 
         return true;
     }

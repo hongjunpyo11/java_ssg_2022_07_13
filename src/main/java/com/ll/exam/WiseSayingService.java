@@ -10,7 +10,7 @@ public class WiseSayingService {
     }
 
     public WiseSaying write(String content, String author) {
-        return wiseSayingRepository.write(content, author);
+        return wiseSayingRepository.add(content, author);
     }
 
     public boolean modify(int id, String content, String author) {
