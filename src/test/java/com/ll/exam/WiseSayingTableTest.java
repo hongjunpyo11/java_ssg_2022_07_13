@@ -56,4 +56,13 @@ public class WiseSayingTableTest {
         assertEquals("나의 죽음을 적들에게 알리지 마라.", wiseSayings.get(1).content);
         assertEquals("이순신", wiseSayings.get(1).author);
     }
+
+    @Test
+    public void 삭제() {
+        wiseSayingTable.removeById(1);
+
+        WiseSaying wiseSaying = wiseSayingTable.findById(1);
+
+        assertEquals(null, wiseSaying);
+    }
 }
