@@ -18,13 +18,22 @@ public class WiseSayingTable {
         Util.file.saveToFile("%s/wise_saying/%d.json".formatted(baseDir, wiseSaying.id), body);
     }
 
-    public void save(String content, String author) {
+    public WiseSaying save(String content, String author) {
         int id = getLastId() + 1;
 
         WiseSaying wiseSaying = new WiseSaying(id, content, author);
         save(wiseSaying);
 
         saveLastId(id);
+
+        return wiseSaying;
+    }
+
+    public boolean save(int id, String content, String author) {
+        WiseSaying wiseSaying = new WiseSaying(id, content, author);
+        save(wiseSaying);
+
+        return true;
     }
 
     private void saveLastId(int id) {
@@ -79,9 +88,12 @@ public class WiseSayingTable {
                 .collect(Collectors.toList());
     }
 
-    public void removeById(int id) {
+    public boolean removeById(int id) {
         String path = "%s/wise_saying/%d.json".formatted(baseDir, id);
 
         new File(path).delete();
+        return true;
     }
+
+
 }

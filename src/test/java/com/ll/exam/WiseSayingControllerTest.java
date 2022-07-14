@@ -1,11 +1,25 @@
 package com.ll.exam;
 
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class WiseSayingControllerTest {
+    @BeforeAll
+    public void beforeAll() {
+        App.mode = "test";
+    }
+
+    @BeforeEach
+    public void beforeEach() {
+        Util.file.deleteDir(App.getBaseDir());
+    }
+
     @Test
     public void 등록을_하면_명언과_작가를_물어본다() {
         String rs = AppTestRunner.run("""
